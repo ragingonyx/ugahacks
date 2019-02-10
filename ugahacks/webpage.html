@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<script src = "script.js" type ="text/javascript"></script>
+<html>
+<head>
+
+<title>FoodFinderSite</title>
+
+<link rel = "stylesheet" href = "style.css">
+
+</head>
+
+<body>
+    <div id = "uploadContainer">
+    <div id = "header">
+        <h1>Food Finder</h1>
+    </div>
+    <h2>What's this meal called?</h2>
+
+        <ul> <!-- This will be a container in css-->
+
+        </ul>
+    
+
+
+    
+    </div>
+
+    <div id = "uploadCamera" class = "camera">
+        <img class = "image" src = "upload camera.png" height = "300" width = "400">
+        <!-- <button class = "selectImageButton">Browse</button> -->
+        <form action="imgclassification.py">
+            <input type="file" name="fileupload" value="fileupload" id="fileupload" accept = "image/png, image/jpeg">
+            <label for="fileupload"> Select an image to upload</label>
+            <input type="submit" value="Predict Food!">
+        </form>
+        <!-- <input type="image file" name="Food" id = "selectedFood" name = "selectedFood" accept="image/png, image/jpeg"> -->
+        
+    </div>
+</body>
+
+
+
+
+
+</html>

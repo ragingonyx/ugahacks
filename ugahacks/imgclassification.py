@@ -5,10 +5,22 @@
 ##############
 
 import numpy as np
+import cgi
 import re
+import io
+import os
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "C:/Users/zacha/Downloads/ugahacks-food-identifier-3a0e6d73b5fc.json"
 from sklearn import svm, metrics, neural_network
 from skimage import io, feature, filters, exposure, color
-from sklearn import preprocessing 
+from sklearn import preprocessing
+
+
+from google.cloud import vision
+from google.cloud.vision import types
+
+client = vision.ImageAnnotatorClient()
+form = cgi.FieldStorage()
+uploadedImage = form.getValue('fileupload')
 
 class ImageClassifier:
     
@@ -30,6 +42,8 @@ class ImageClassifier:
         for i, f in enumerate(labels):
             m = re.search("_", f)
             labels[i] = f[len(dir):m.start()]
+
+
         
         return(data,labels)
 
@@ -38,7 +52,16 @@ class ImageClassifier:
         # extract feature vector from image data
         feature_data = []
 
-        for image in data:
+        for image in data: 
+            # content = image
+            # newImage = vision.types.Image(content = content)
+            # response = client.image_properties(newImage = newImage)
+            # properties = response.image_properties_annotation
+            # print('Properties of the image:')
+
+            # for description in props.webDetection.webEntities:
+            #     print('Fraction: {}'.format(webEntities.description))
+
             #image = color.rgb2gray(image)
             image = filters.gaussian(image, sigma = 1, multichannel = True)
             image = exposure.equalize_adapthist(image)
@@ -46,6 +69,9 @@ class ImageClassifier:
             image = feature.hog(image)
             
             feature_data.append(image)
+
+            
+            
         #pt.fit(feature_data)
         #feature_data = pt.transform(feature_data)
         
